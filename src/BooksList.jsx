@@ -1,5 +1,8 @@
+import { useState } from 'react';
+import { produce } from 'immer';
 import './BooksList.css'
-const books = [
+import BooksListItem from './BooksListItem';
+const initialBooks = [
   {
     id: 1,
     title: 'JavaScript—The Comprehensive Guide',
@@ -22,6 +25,17 @@ const books = [
   },
 ];
 function BooksList() {
+  const [books, setBooks] = useState(initialBooks);
+
+  function handleRate(id, rating) {
+    setBooks((prevState) => {
+      return produce(prevState, (draftState) => {
+        const index = draftState.findIndex((book) => book.id === id);
+        draftState[index].rating = rating;
+        });
+    });
+  }
+
   if (books.length === 0) {
     return <div>No books found</div>;
   } else {
@@ -37,13 +51,7 @@ function BooksList() {
         </thead>
         <tbody>
           {books.map((book) => (
-            <tr key={book.id}>
-              <td>{book.title}</td>
-              <td>{book.author ? book.author : 'Unknown'}</td>
-              <td>{book.isbn}</td>
-              <td>{book.rating && <span>{'*'.repeat(book.rating)}</span>}
-              </td>
-            </tr>
+            <BooksListItem key={book.id} book={book} onRate={handleRate}/>
           ))}
         </tbody></table>
     );
