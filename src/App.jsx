@@ -1,15 +1,10 @@
-import { useState } from 'react'
-import './App.css'
-// import BooksList from './BooksList'
-import MyComponent from './MyComponent';
-
+import BooksProvider from './BooksProvider';
+import BooksList from './BooksList';
 function App() {
   return (
-    <div>
-      <h1>Books management</h1>
-      <MyComponent />
-    </div>
+    <BooksProvider>
+      <BooksList />
+    </BooksProvider>
   );
 }
-
-export default App
+export default App;

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 function Timer() {
   const [time, setTime] = useState(0);
-  const [reset, setReset] = useState(null);
+  const [reset, setReset] = useState(0);
   const intervalRef = useRef(null);
   useEffect(() => {
     console.log('useEffect');
